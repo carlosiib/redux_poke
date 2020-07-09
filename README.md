@@ -1,12 +1,11 @@
 
-## Redux poke
+# Redux poke
 
 Redux tutorial with pokeAPI.
 
 # Dependencies
 - Redux
 - React-redux
-- Redux-devtools
 - Redux-thunks
 - Axios
 
