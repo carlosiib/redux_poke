@@ -1,7 +1,7 @@
 
 # Redux poke
 
-Redux tutorial with pokeAPI.
+React-redux with pokeAPI.
 
 # Dependencies
 - Redux
