@@ -11,14 +11,17 @@ const dataInicial = {
 //types
 const OBTENER_POKEMONES_EXITO = "OBTENER_POKEMONES_EXITO"
 const SIGUIENTE_POKEMONES_EXITO = "SIGUIENTE_POKEMONES_EXITO"
+const POKE_INFO_EXITO = "POKE_INFO_EXITO"
 
-//REDUCER -
+//reducers
 export default function pokeReducer(state = dataInicial, action) {
   switch (action.type) {
     case OBTENER_POKEMONES_EXITO:
       return { ...state, ...action.payload }
     case SIGUIENTE_POKEMONES_EXITO:
       return { ...state, ...action.payload }
+    case POKE_INFO_EXITO:
+      return { ...state, unPokemon: action.payload }
     default:
       return state
   }
@@ -103,6 +106,28 @@ export const anteriorPokemonAccion = () => async (dispatch, getState) => {
       payload: res.data
     })
     localStorage.setItem(previous, JSON.stringify(res.data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const unPokeDetalleAccion = (url = "https://pokeapi.co/api/v2/pokemon/1/") => async (dispatch, getState) => {
+
+
+  try {
+    const res = await axios.get(url)
+    console.log(res.data)
+    dispatch({
+      type: "POKE_INFO_EXITO",
+      //getting the info for Detalle component
+      payload: {
+        name: res.data.name,
+        ancho: res.data.weight,
+        alto: res.data.height,
+        foto: res.data.sprites.front_default
+
+      }
+    })
   } catch (error) {
     console.log(error)
   }

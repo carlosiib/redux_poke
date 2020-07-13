@@ -3,7 +3,8 @@ import React from 'react'
 // useDipatch -> Consumir,disparar la accion
 // useSelector -> leer el store
 import { useDispatch, useSelector } from "react-redux"
-import { obtenerPokemonesAccion, siguientePokemonAccion, anteriorPokemonAccion } from "../redux/pokeDUCKS"
+import { obtenerPokemonesAccion, siguientePokemonAccion, anteriorPokemonAccion, unPokeDetalleAccion } from "../redux/pokeDUCKS"
+import Detalle from "./Detalle"
 
 const Pokemones = () => {
 
@@ -46,15 +47,18 @@ const Pokemones = () => {
               <li
                 key={item.name}
                 className="list-group-item text-uppercase">{item.name}
-                <button className="btn btn-dark btn-sm float-right">Info</button>
+                <button
+                  className="btn btn-dark btn-sm float-right"
+                  onClick={() => dispatch(unPokeDetalleAccion(item.url))}>Info</button>
               </li>
             ))
           }
         </ul>
       </div >
       <div className="col-md-6">
-        Detalla de un pokemon
-    </div>
+        <h3>Detalle del pokemon</h3>
+        <Detalle />
+      </div>
     </div >
   )
 }
