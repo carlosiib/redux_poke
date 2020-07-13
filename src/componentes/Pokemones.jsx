@@ -14,37 +14,48 @@ const Pokemones = () => {
 
 
   return (
-    <div>
-      lista de pokemones
-      <br />
+    <div className="row">
+      <div className="col-md-6">
+        <h3>Lista de Pokemones</h3>
+        <br />
 
-      {
-        pokemones.length === 0 && (<button
-          onClick={() => dispatch(obtenerPokemonesAccion())}>
-          Get Pokemones
-        </button>)
-      }
+        <div className="d-flex justify-content-between">
+          {
+            pokemones.length === 0 && (<button
+              className="btn btn-dark" onClick={() => dispatch(obtenerPokemonesAccion())}>
+              Get Pokemones
+            </button>)
+          }
 
-      {
-        next && (
-          <button onClick={() => dispatch(siguientePokemonAccion())}>Siguiente</button>
-        )
-      }
+          {
+            next && (
+              <button className="btn btn-dark" onClick={() => dispatch(siguientePokemonAccion())}>Siguiente</button>
+            )
+          }
 
-      {
-        previous && (
-          <button onClick={() => dispatch(anteriorPokemonAccion())}>Anterior</button>
-        )
-      }
+          {
+            previous && (
+              <button className="btn btn-dark" onClick={() => dispatch(anteriorPokemonAccion())}>Anterior</button>
+            )
+          }
+        </div>
 
-      <ul>
-        {
-          pokemones.map(item => (
-            <li key={item.name}>{item.name}</li>
-          ))
-        }
-      </ul>
+        <ul className="list-group mt-3">
+          {
+            pokemones.map(item => (
+              <li
+                key={item.name}
+                className="list-group-item text-uppercase">{item.name}
+                <button className="btn btn-dark btn-sm float-right">Info</button>
+              </li>
+            ))
+          }
+        </ul>
+      </div >
+      <div className="col-md-6">
+        Detalla de un pokemon
     </div>
+    </div >
   )
 }
 export default Pokemones;
