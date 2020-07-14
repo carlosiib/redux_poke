@@ -3,9 +3,11 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux"
 import thunks from "redux-thunk"
 
 import pokeReducer from "./pokeDUCKS.js"
+import usuarioReducer from "./usuarioDUCKS"
 
 const rootReducer = combineReducers({
-  pokemones: pokeReducer
+  pokemones: pokeReducer,
+  usuario: usuarioReducer
 })
 
 //configurar redux-devtools en chrome
