@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 // useDipatch -> Consumir,disparar la accion
 // useSelector -> leer el store
@@ -13,6 +13,13 @@ const Pokemones = () => {
   const next = useSelector(store => store.pokemones.next)
   const previous = useSelector(store => store.pokemones.previous)
 
+
+  useEffect(() => {
+    const fetchData = () => {
+      dispatch(obtenerPokemonesAccion())
+    }
+    fetchData()
+  }, [dispatch])
 
   return (
     <div className="row">

@@ -14,12 +14,12 @@ const Detalle = () => {
   }, [dispatch])
 
   const pokemon = useSelector(store => store.pokemones.unPokemon)
-  console.log(pokemon)
+  //console.log(pokemon)
 
   return pokemon ? (
     <div className="card mt-4 text-center">
       <div className="card-body">
-        <img src={pokemon.foto} className="img-fluid" />
+        <img src={pokemon.foto} className="img-fluid" alt="" />
         <div className="card-title text-uppercase">{pokemon.nombre}</div>
         <p className="card-title">Alto: {pokemon.ancho} | Ancho: {pokemon.alto} </p>
       </div>

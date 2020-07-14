@@ -44,7 +44,7 @@ export const obtenerPokemonesAccion = () => async (dispatch, getState) => {
     return
   }
   try {
-    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`)
+    const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=10`)
     console.log(res.data)
     dispatch({
       type: OBTENER_POKEMONES_EXITO,
@@ -113,10 +113,19 @@ export const anteriorPokemonAccion = () => async (dispatch, getState) => {
 
 export const unPokeDetalleAccion = (url = "https://pokeapi.co/api/v2/pokemon/1/") => async (dispatch, getState) => {
 
+  if (localStorage.getItem(url)) {
+    dispatch({
+      type: "POKE_INFO_EXITO",
+      payload: JSON.parse(localStorage.getItem(url))
+    })
+    console.log("datos desde localstorage")
+    return
+  }
 
   try {
+    console.log("datos desde API")
     const res = await axios.get(url)
-    console.log(res.data)
+    //console.log(res.data)
     dispatch({
       type: "POKE_INFO_EXITO",
       //getting the info for Detalle component
@@ -125,9 +134,14 @@ export const unPokeDetalleAccion = (url = "https://pokeapi.co/api/v2/pokemon/1/"
         ancho: res.data.weight,
         alto: res.data.height,
         foto: res.data.sprites.front_default
-
       }
     })
+    localStorage.setItem(url, JSON.stringify({
+      name: res.data.name,
+      ancho: res.data.weight,
+      alto: res.data.height,
+      foto: res.data.sprites.front_default
+    }))
   } catch (error) {
     console.log(error)
   }
