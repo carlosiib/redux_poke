@@ -28,10 +28,7 @@ export default function pokeReducer(state = dataInicial, action) {
 
 }
 
-//ACTIONS - fetching data from the api
-//first AF - get and set the parameters to the function obtenerPokemonesAccion
-//async - because it is a call to an API
-//dispatch - the reducer is activated
+//actions 
 export const obtenerPokemonesAccion = () => async (dispatch, getState) => {
 
   //validating if localstorage have items
@@ -59,7 +56,6 @@ export const obtenerPokemonesAccion = () => async (dispatch, getState) => {
   }
 }
 
-//action
 export const siguientePokemonAccion = () => async (dispatch, getState) => {
   const { next } = getState().pokemones
 
