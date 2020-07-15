@@ -1,8 +1,18 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { cerrarSesionAction } from "../redux/usuarioDUCKS"
+
 import { Link, NavLink } from "react-router-dom"
+import { withRouter } from "react-router-dom"
 
+const Navbar = (props) => {
 
-const Navbar = () => {
+  const dispatch = useDispatch()
+  const cerrarSesion = () => {
+    dispatch(cerrarSesionAction())
+    props.history.push("/login")
+  }
+
   return (
     <div className="navbar navbar-dark bg-dark">
       <Link className="navbar-brand" to="/">App poke</Link>
@@ -17,7 +27,8 @@ const Navbar = () => {
           to="/login" >
           Login</NavLink>
         <button
-          className="btn btn-dark mr-2">
+          className="btn btn-dark mr-2"
+          onClick={() => cerrarSesion()}>
           Cerrar sesión
           </button>
       </div>
@@ -25,4 +36,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default withRouter(Navbar)
