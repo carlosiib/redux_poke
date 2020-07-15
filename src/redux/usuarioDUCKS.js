@@ -1,4 +1,4 @@
-import { auth, firebase } from "../firebase"
+import { auth, firebase, db } from "../firebase"
 //data inicial
 const dataInicial = {
   loading: false,
@@ -39,18 +39,35 @@ export const ingresoUsuarioAccion = () => async (dispatch) => {
     const res = await auth.signInWithPopup(provider)
     //console.log(res)
 
-    dispatch({
-      type: USUARIO_EXITO,
-      payload: {
-        uid: res.user.uid,
-        email: res.user.email
-      }
-    })
-
-    localStorage.setItem("usuario", JSON.stringify({
+    const usuario = {
       uid: res.user.uid,
-      email: res.user.email
-    }))
+      email: res.user.email,
+      displayName: res.user.displayName,
+      photoURL: res.user.photoURL
+    }
+
+    //validating if the user exist or not in the user collection
+    const usuarioDB = await db.collection("usuarios").doc(usuario.email).get()
+
+    if (usuarioDB.exists) {
+      //user exist on the collection
+      dispatch({
+        type: USUARIO_EXITO,
+        payload: usuarioDB.data()
+      })
+      localStorage.setItem("usuario", JSON.stringify(usuarioDB.data()))
+
+    } else {
+      //user doesn´t exist on the collection and saving user data into the collection
+      await db.collection("usuarios").doc(usuario.email).set(usuario)
+      dispatch({
+        type: USUARIO_EXITO,
+        payload: usuario
+      })
+      localStorage.setItem("usuario", JSON.stringify(usuario))
+    }
+
+
   } catch (error) {
     console.log(error)
     dispatch({
