@@ -1,6 +1,6 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux"
 //poder hacer promesas con redux
-import thunks from "redux-thunk"
+import thunk from "redux-thunk"
 
 import pokeReducer from "./pokeDUCKS.js"
 import usuarioReducer, { leerUsuarioActivoAction } from "./usuarioDUCKS"
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export default function generateStore() {
-  const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunks)))
+  const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
   leerUsuarioActivoAction()(store.dispatch)
   return store
 }

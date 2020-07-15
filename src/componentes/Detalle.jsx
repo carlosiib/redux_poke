@@ -21,7 +21,7 @@ const Detalle = () => {
       <div className="card-body">
         <img src={pokemon.foto} className="img-fluid" alt="" />
         <div className="card-title text-uppercase">{pokemon.nombre}</div>
-        <p className="card-title">Alto: {pokemon.ancho} | Ancho: {pokemon.alto} </p>
+        <p className="card-title">Alto: {pokemon.alto} | Ancho: {pokemon.ancho} </p>
       </div>
     </div>
   ) : null

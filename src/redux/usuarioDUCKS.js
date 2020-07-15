@@ -30,14 +30,14 @@ export default function usuarioReducer(state = dataInicial, action) {
 //actions
 export const ingresoUsuarioAccion = () => async (dispatch) => {
   dispatch({
-    type: LOADING,
+    type: LOADING
   })
 
   try {
 
     const provider = new firebase.auth.GoogleAuthProvider();
     const res = await auth.signInWithPopup(provider)
-    console.log(res)
+    //console.log(res)
 
     dispatch({
       type: USUARIO_EXITO,
