@@ -25,19 +25,20 @@ export default function usuarioReducer(state = dataInicial, action) {
     default:
       return { ...state }
   }
-
 }
+
 //actions
+// action
 export const ingresoUsuarioAccion = () => async (dispatch) => {
   dispatch({
     type: LOADING
   })
-
   try {
 
     const provider = new firebase.auth.GoogleAuthProvider();
     const res = await auth.signInWithPopup(provider)
-    //console.log(res)
+
+    console.log(res.user)
 
     const usuario = {
       uid: res.user.uid,
@@ -45,28 +46,25 @@ export const ingresoUsuarioAccion = () => async (dispatch) => {
       displayName: res.user.displayName,
       photoURL: res.user.photoURL
     }
-
     //validating if the user exist or not in the user collection
-    const usuarioDB = await db.collection("usuarios").doc(usuario.email).get()
-
+    const usuarioDB = await db.collection('usuarios').doc(usuario.email).get()
+    console.log(usuarioDB)
     if (usuarioDB.exists) {
       //user exist on the collection
       dispatch({
         type: USUARIO_EXITO,
         payload: usuarioDB.data()
       })
-      localStorage.setItem("usuario", JSON.stringify(usuarioDB.data()))
-
+      localStorage.setItem('usuario', JSON.stringify(usuarioDB.data()))
     } else {
       //user doesn´t exist on the collection and saving user data into the collection
-      await db.collection("usuarios").doc(usuario.email).set(usuario)
+      await db.collection('usuarios').doc(usuario.email).set(usuario)
       dispatch({
         type: USUARIO_EXITO,
         payload: usuario
       })
-      localStorage.setItem("usuario", JSON.stringify(usuario))
+      localStorage.setItem('usuario', JSON.stringify(usuario))
     }
-
 
   } catch (error) {
     console.log(error)

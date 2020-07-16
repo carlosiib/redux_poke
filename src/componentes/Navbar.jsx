@@ -32,7 +32,7 @@ const Navbar = (props) => {
                 className="btn btn-dark mr-2"
                 to="/perfil"
                 exact>
-                Peril
+                Perfil
               </NavLink>
               <button
                 className="btn btn-dark mr-2"
