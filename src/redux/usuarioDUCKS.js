@@ -78,7 +78,7 @@ export const ingresoUsuarioAccion = () => async (dispatch) => {
 
 export const leerUsuarioActivoAction = () => (dispatch) => {
 
-  //detect a user in localstorage
+  //detect user in localstorage
   if (localStorage.getItem("usuario")) {
     dispatch({
       type: USUARIO_EXITO,
@@ -124,7 +124,7 @@ export const actualizarUsuarioAccion = (nombreActualizado) => async (dispatch, g
   }
 }
 
-export const editarFotoUsuarioAccion = (imagenEditada) = async (dispatch, getState) => {
+export const editarFotoUsuarioAccion = (imagenEditada) => async (dispatch, getState) => {
   dispatch({
     type: LOADING
   })

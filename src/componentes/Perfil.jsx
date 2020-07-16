@@ -10,6 +10,7 @@ const Perfil = () => {
 
   const [nombreUsuario, setNombreUsuario] = useState(usuario.displayName)
   const [activarFormulario, setActivarFormulario] = useState(false)
+  const [error, setError] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -20,6 +21,26 @@ const Perfil = () => {
     }
     dispatch(actualizarUsuarioAccion(nombreUsuario))
     setActivarFormulario(false)
+  }
+
+  const seleccionarArchivo = (imagen) => {
+    console.log(imagen.target.files[0])
+
+    const imagenCliente = imagen.target.files[0]
+
+    //user dont select an image
+    if (imagenCliente === "undefined") {
+      console.log("No se selcciono imagen")
+      return
+    }
+
+    //saving the image
+    if (imagenCliente.type === "image/png" || imagenCliente.type === "image/jpeg") {
+      dispatch(editarFotoUsuarioAccion(imagenCliente))
+      setError(false)
+    } else {
+      setError(true)
+    }
   }
 
   return (
@@ -34,6 +55,28 @@ const Perfil = () => {
             onClick={() => setActivarFormulario(true)}>
             Editar nombre
           </button>
+          {
+            error && (
+              <div className="alert alert-warning mt-3">
+                Solo archivos .png o .jpg
+              </div>
+            )
+          }
+          <div className="custom-file">
+            <input
+              type="file"
+              className="custom-file-input" id="inputGroupFile01"
+              style={{ display: "none" }}
+              onChange={e => seleccionarArchivo(e)}
+              disabled={loading} />
+            <label
+              className={loading ?
+                "btn btn-dark mt-2 disabled" :
+                "btn btn-dark mt-2"}
+              htmlFor="inputGroupFile01">
+              Actualizar Imagen
+            </label>
+          </div>
         </div>
         {
           loading ? (
