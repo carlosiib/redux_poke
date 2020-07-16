@@ -1,4 +1,4 @@
-import { auth, firebase, db } from "../firebase"
+import { auth, firebase, db, storage } from "../firebase"
 //data inicial
 const dataInicial = {
   loading: false,
@@ -122,4 +122,45 @@ export const actualizarUsuarioAccion = (nombreActualizado) => async (dispatch, g
   } catch (error) {
     console.log(error)
   }
+}
+
+export const editarFotoUsuarioAccion = (imagenEditada) = async (dispatch, getState) => {
+  dispatch({
+    type: LOADING
+  })
+
+  //accediendo al user del state
+  const { user } = getState().usuario
+  console.log(user)
+
+  try {
+    //storage.ref() -> Reference where the image is going to be saved.
+    //.child(user.email) -> creating a directory in firebase named based on the user email
+    //child("foto perfil") -> creating a file with name "foto perfil"
+    const imagenRef = await storage.ref().child(user.email).child("foto perfil")
+    await imagenRef.put(imagenEditada)
+
+    //getting the url of the updated image
+    const imagenURL = await imagenRef.getDownloadURL()
+
+    await db.collection("usuarios").doc(user.email).update({
+      photoURL: imagenURL
+    })
+
+    //values that are going to change in the new state
+    const usuario = {
+      ...user,
+      photoURL: imagenURL
+    }
+
+    dispatch({
+      type: USUARIO_EXITO,
+      payload: usuario
+    })
+
+    localStorage.setItem("usuario", JSON.stringify(usuario))
+  } catch (error) {
+    console.log(error)
+  }
+
 }

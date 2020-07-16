@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { actualizarUsuarioAccion } from "../redux/usuarioDUCKS"
+import { actualizarUsuarioAccion, editarFotoUsuarioAccion } from "../redux/usuarioDUCKS"
 
 
 const Perfil = () => {
