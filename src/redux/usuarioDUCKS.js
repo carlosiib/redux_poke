@@ -94,3 +94,7 @@ export const cerrarSesionAction = () => (dispatch) => {
     type: CERRAR_SESION
   })
 }
+
+export const actualizarUsuarioAccion = () => async (dispatch) => {
+
+}

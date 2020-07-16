@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom"
 import { withRouter } from "react-router-dom"
 
 const Navbar = (props) => {
-
+  //activo -> usuario activo
   const activo = useSelector(store => store.usuario.activo)
 
   const dispatch = useDispatch()
@@ -17,7 +17,7 @@ const Navbar = (props) => {
 
   return (
     <div className="navbar navbar-dark bg-dark">
-      <Link className="navbar-brand" to="/">App poke</Link>
+      <Link className="navbar-brand" to="/">Pokemon App</Link>
       <div className="d-flex">
         {
           activo ? (
@@ -27,6 +27,12 @@ const Navbar = (props) => {
                 to="/"
                 exact>
                 Inicio
+              </NavLink>
+              <NavLink
+                className="btn btn-dark mr-2"
+                to="/perfil"
+                exact>
+                Peril
               </NavLink>
               <button
                 className="btn btn-dark mr-2"
